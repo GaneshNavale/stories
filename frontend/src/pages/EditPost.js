@@ -8,6 +8,7 @@ import ImageTool from "@editorjs/image";
 import axios from "axios";
 import Container from "react-bootstrap/Container";
 import { useLocation } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const NewPost = (props) => {
   let { state } = useLocation();
@@ -40,7 +41,6 @@ const NewPost = (props) => {
       onChange: async () => {
         let content = await editor.saver.save();
         setEditorContent(content);
-        updatePost();
       },
       tools: {
         heading: {
@@ -124,7 +124,18 @@ const NewPost = (props) => {
     return response.data.data;
   };
 
-  return <div id="editorjs"></div>;
+  return (
+    <Container>
+      <div id="editorjs"></div>
+      <Button
+        onClick={() => {
+          updatePost();
+        }}
+      >
+        Publish
+      </Button>
+    </Container>
+  );
 };
 
 export default NewPost;
