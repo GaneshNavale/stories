@@ -1,8 +1,20 @@
 class Api::V1::PostsController < ApplicationController
   include Rails.application.routes.url_helpers
 
+  def index
+    @posts = Post.all
+    render json: { success:1, posts: @posts }
+  end
+
   def create
     post = Post.new(data: params[:data])
+    post.save!
+    render json: {success: 1, data: post.data}
+  end
+
+  def update
+    post = Post.find(params[:id])
+    post.data = params[:data]
     post.save!
     render json: {success: 1, data: post.data}
   end
