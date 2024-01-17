@@ -1,26 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 const RandomSGrid2 = () => {
-  const [characterVisibility, setCharacterVisibility] = useState([]);
+  const [isToggled, setIsToggled] = useState(true);
+
+  const [state, setState] = useState(
+    Array.from({ length: 573 }, () => ({
+      opacity: Math.random() >= 0.5 ? '0' : '1',
+    }))
+  );
 
   useEffect(() => {
-    // Initialize character visibility state
-    const initialVisibility = Array.from(
-      { length: 100 },
-      () => Math.random() < 0.5
-    );
-    setCharacterVisibility(initialVisibility);
+    console.log("Opacity changed:", state[1]?.opacity);
+  }, [state]);
 
-    // Set up interval to toggle character visibility
+  const updateOpacity = useCallback(
+    (indices) => {
+      const newState = [...state];
+      indices.forEach((index) => {
+        newState[index].opacity = newState[index].opacity === "0" ? "1" : "0";
+      });
+      console.log("newState", newState[0]?.opacity);
+      setState(newState);
+    },
+    [] // No dependencies since useCallback is used properly
+  );
+
+  useEffect(() => {
     const intervalId = setInterval(() => {
-      setCharacterVisibility((prevVisibility) =>
-        prevVisibility.map(() => Math.random() < 0.5)
-      );
-    }, 5000);
+      setIsToggled((prevToggleState) => !prevToggleState);
+    }, 150);
 
-    // Clear the interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    const randomIndices = Array.from({ length: 5 }, () => Math.floor(Math.random() * 573));
+    console.log('changed', randomIndices);
+    updateOpacity(randomIndices);
+  }, [isToggled, updateOpacity]);
 
   return (
     <svg
@@ -33,7 +50,7 @@ const RandomSGrid2 = () => {
         "width": "100%",
         "height": "100%",
         "transform": "translate3d(0px, 0px, 0px)",
-        "content-visibility": "visible",
+        "contentVisibility": "visible",
       }}
     >
       <defs>
@@ -41,13 +58,13 @@ const RandomSGrid2 = () => {
           <rect width="585" height="462" x="0" y="0"></rect>
         </clipPath>
       </defs>
-      <g clip-path="url(#__lottie_element_2)">
+      <g clipPath="url(#__lottie_element_2)">
         <g
           fill="rgb(0,0,0)"
-          font-size="22"
-          font-family="Shne"
-          font-style="normal"
-          font-weight="normal"
+          fontSize="22"
+          fontFamily="Shne"
+          fontStyle="normal"
+          fontWeight="normal"
           aria-label=" M M M M M M M M M M M M M M
  M M M M M M M M M M M M M M M M M M M M M
 M M M M M M M M M M M M M M M M M M M M M M M M M
@@ -70,11 +87,11 @@ M M M M M M M M M M M M
           style={{ display: "block" }}
         >
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.238014221191406,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[0].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -82,11 +99,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.6619930267334,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[1].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -101,11 +118,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.940010070800781,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[2].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -113,11 +130,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.363988876342773,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[3].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -132,11 +149,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.357994079589844,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[4].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -144,11 +161,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.93400001525879,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[5].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -163,11 +180,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.65599822998047,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[6].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -175,11 +192,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23198699951172,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[7].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -194,11 +211,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.954002380371094,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[8].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -206,11 +223,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.52999114990234,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[9].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -225,11 +242,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25200653076172,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[10].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -237,11 +254,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82799530029297,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[11].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -256,11 +273,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.54999542236328,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[12].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -268,11 +285,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.1259994506836,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[13].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -287,11 +304,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84800720214844,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[14].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -299,11 +316,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.42401123046875,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[15].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -318,11 +335,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14599609375,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[16].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -330,11 +347,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.72198486328125,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[17].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -349,11 +366,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44398498535156,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[18].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -361,11 +378,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.01998901367188,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[19].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -380,11 +397,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.7419891357422,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[20].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -392,11 +409,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.3179931640625,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[21].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -411,11 +428,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.0399932861328,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[22].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -423,11 +440,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61599731445312,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[23].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -442,11 +459,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.33799743652344,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[24].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -454,11 +471,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.9139862060547,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[25].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -473,11 +490,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[26].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -485,11 +502,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,-187.70428466796875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[27].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -504,9 +521,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -514,11 +531,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-196.3240203857422,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[28].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -526,11 +543,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-191.7480010986328,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[29].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -545,11 +562,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-173.02601623535156,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[30].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -557,11 +574,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-168.4499969482422,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[31].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -576,11 +593,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-149.72801208496094,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[32].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -588,11 +605,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-145.15200805664062,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[33].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -607,11 +624,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-126.43000793457031,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[34].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -619,11 +636,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-121.85401916503906,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[35].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -638,11 +655,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-103.13199615478516,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[36].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -650,11 +667,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-98.5560073852539,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[37].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -669,11 +686,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-79.83399200439453,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[38].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -681,11 +698,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-75.25800323486328,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[39].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -700,11 +717,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-56.536006927490234,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[40].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -712,11 +729,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-51.959999084472656,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[41].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -731,11 +748,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.23800277709961,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[42].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -743,11 +760,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.661996841430664,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[43].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -762,11 +779,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.939996719360352,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[44].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -774,11 +791,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.364006042480469,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[45].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -793,11 +810,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.357992172241211,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[46].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -805,11 +822,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.933998107910156,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[47].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -824,11 +841,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.6559944152832,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[48].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -836,11 +853,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23200225830078,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[49].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -855,11 +872,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.95399856567383,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[50].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -867,11 +884,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.5300064086914,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[51].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -886,11 +903,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25200653076172,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[52].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -898,11 +915,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82799530029297,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[53].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -917,11 +934,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.55001068115234,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[54].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -929,11 +946,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.1259994506836,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[55].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -948,11 +965,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.8480224609375,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[56].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -960,11 +977,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-196.3240203857422,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[57].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -972,11 +989,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-191.7480010986328,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[58].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -991,11 +1008,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-173.02601623535156,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[59].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1003,11 +1020,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-168.4499969482422,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[60].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1022,11 +1039,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-149.72801208496094,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[61].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1034,11 +1051,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-145.15200805664062,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[62].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1053,11 +1070,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-126.43000793457031,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[63].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1065,11 +1082,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-121.85401916503906,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[64].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1084,11 +1101,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-103.13199615478516,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[65].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1096,11 +1113,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-98.5560073852539,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[66].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1115,11 +1132,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-79.83399200439453,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[67].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1127,11 +1144,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-75.25800323486328,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[68].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1146,11 +1163,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-56.536006927490234,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[69].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1158,11 +1175,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-51.959999084472656,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[70].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1177,11 +1194,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.23800277709961,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[71].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1189,11 +1206,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.661996841430664,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[72].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1208,11 +1225,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.939996719360352,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[73].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1220,11 +1237,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.364006042480469,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[74].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1239,11 +1256,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.357992172241211,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[75].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1251,11 +1268,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.933998107910156,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[76].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1270,11 +1287,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.6559944152832,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[77].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1282,11 +1299,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23200225830078,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[78].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1301,11 +1318,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.95399856567383,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[79].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1313,11 +1330,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.5300064086914,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[80].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1332,11 +1349,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25200653076172,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[81].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1344,11 +1361,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82799530029297,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[82].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1363,11 +1380,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.55001068115234,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[83].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1375,11 +1392,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.1259994506836,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[84].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1394,11 +1411,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.8480224609375,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[85].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1406,11 +1423,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.42401123046875,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[86].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1425,11 +1442,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14598083496094,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[87].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1437,11 +1454,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.7220001220703,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[88].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1456,11 +1473,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44398498535156,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[89].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1468,11 +1485,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.02000427246094,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[90].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1487,11 +1504,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.7419891357422,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[91].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1499,11 +1516,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.31797790527344,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[92].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1518,11 +1535,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.0399932861328,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[93].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1530,11 +1547,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61598205566406,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[94].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1549,11 +1566,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.33799743652344,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[95].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1561,11 +1578,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.9139862060547,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[96].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1580,11 +1597,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[97].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1592,11 +1609,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,-160.30429077148438)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[98].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1611,9 +1628,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1621,11 +1638,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-284.94000244140625,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[99].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1640,11 +1657,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-266.2179870605469,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[100].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1652,11 +1669,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-261.6419982910156,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[101].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1671,11 +1688,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-242.9199981689453,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[102].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1683,11 +1700,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-238.34400939941406,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[103].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1702,11 +1719,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-219.6219940185547,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[104].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1714,11 +1731,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-215.04600524902344,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[105].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1733,11 +1750,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-196.32400512695312,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[106].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1745,11 +1762,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-191.7480010986328,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[107].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1764,11 +1781,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-173.0260009765625,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[108].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1776,11 +1793,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-168.4499969482422,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[109].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1795,11 +1812,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-149.72799682617188,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[110].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1807,11 +1824,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-145.15200805664062,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[111].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1826,11 +1843,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-126.43000793457031,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[112].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1838,11 +1855,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-121.85400390625,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[113].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1857,11 +1874,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-103.13200378417969,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[114].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1869,11 +1886,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-98.55599975585938,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[115].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1888,11 +1905,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-79.83399963378906,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[116].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1900,11 +1917,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-75.25801086425781,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[117].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1919,11 +1936,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-56.536006927490234,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[118].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1931,11 +1948,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-51.959999084472656,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[119].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1950,11 +1967,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.23800277709961,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[120].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1962,11 +1979,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.661996841430664,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[121].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1981,11 +1998,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.940013885498047,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[122].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -1993,11 +2010,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.363992691040039,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[123].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2012,11 +2029,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.357990264892578,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[124].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2024,11 +2041,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.934011459350586,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[125].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2043,11 +2060,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.6559944152832,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[126].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2055,11 +2072,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23201370239258,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[127].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2074,11 +2091,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.95399856567383,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[128].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2086,11 +2103,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.52999114990234,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[129].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2105,11 +2122,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25199890136719,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[130].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2117,11 +2134,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82798767089844,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[131].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2136,11 +2153,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.55000305175781,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[132].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2148,11 +2165,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.12599182128906,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[133].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2167,11 +2184,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84800720214844,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[134].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2179,11 +2196,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.4239959716797,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[135].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2198,11 +2215,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14601135253906,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[136].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2210,11 +2227,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.7220001220703,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[137].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2229,11 +2246,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44398498535156,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[138].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2241,11 +2258,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.02000427246094,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[139].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2260,11 +2277,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.7419891357422,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[140].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2272,11 +2289,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.31800842285156,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[141].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2291,11 +2308,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.0399932861328,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[142].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2303,11 +2320,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61598205566406,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[143].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2322,11 +2339,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.3379669189453,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[144].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2334,11 +2351,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.9140167236328,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[145].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2353,11 +2370,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[146].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2365,11 +2382,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,-133.904296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[147].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2384,9 +2401,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2394,11 +2411,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.357985496520996,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[148].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2406,11 +2423,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.934005737304688,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[149].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2425,11 +2442,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.65599060058594,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[150].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2437,11 +2454,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23200988769531,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[151].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2456,11 +2473,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.95399475097656,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[152].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2468,11 +2485,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.52999877929688,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[153].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2487,11 +2504,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25199890136719,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[154].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2499,11 +2516,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82798767089844,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[155].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2518,11 +2535,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.55000305175781,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[156].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2530,11 +2547,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.12599182128906,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[157].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2549,11 +2566,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84800720214844,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[158].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2561,11 +2578,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.4239959716797,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[159].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2580,11 +2597,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14599609375,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[160].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2592,11 +2609,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.7220001220703,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[161].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2611,11 +2628,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44400024414062,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[162].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2623,11 +2640,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.02000427246094,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[163].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2642,11 +2659,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.74200439453125,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[164].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2654,11 +2671,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.3179931640625,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[165].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2673,11 +2690,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.0399932861328,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[166].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2685,11 +2702,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61599731445312,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[167].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2704,11 +2721,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.33799743652344,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[168].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2716,11 +2733,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.91400146484375,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[169].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2735,11 +2752,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[170].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2747,11 +2764,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,-107.50430297851562)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[171].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2766,9 +2783,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2776,11 +2793,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-149.72801208496094,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[172].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2788,11 +2805,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-145.15199279785156,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[173].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2807,11 +2824,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-126.43000793457031,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[174].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2819,11 +2836,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-121.85398864746094,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[175].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2838,11 +2855,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-103.13200378417969,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[176].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2850,11 +2867,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-98.55599975585938,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[177].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2869,11 +2886,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-79.83399963378906,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[178].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2881,11 +2898,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-75.25801086425781,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[179].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2900,11 +2917,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-56.5359992980957,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[180].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2912,11 +2929,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-51.96000671386719,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[181].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2931,11 +2948,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.23799514770508,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[182].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2943,11 +2960,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.662004470825195,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[183].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2962,11 +2979,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.940004348754883,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[184].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2974,11 +2991,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.3639984130859375,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[185].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -2993,11 +3010,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.357999801635742,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[186].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3005,11 +3022,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.934005737304688,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[187].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3024,11 +3041,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.656002044677734,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[188].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3036,11 +3053,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23199462890625,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[189].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3055,11 +3072,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.9539909362793,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[190].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3067,11 +3084,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.52999877929688,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[191].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3086,11 +3103,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25199890136719,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[192].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3098,11 +3115,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.8280029296875,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[193].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3117,11 +3134,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.55000305175781,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[194].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3129,11 +3146,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.12600708007812,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[195].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3148,11 +3165,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84800720214844,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[196].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3160,11 +3177,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.4239959716797,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[197].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3179,11 +3196,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14601135253906,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[198].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3191,11 +3208,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.7220001220703,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[199].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3210,11 +3227,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.4440155029297,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[200].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3222,11 +3239,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.02000427246094,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[201].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3241,11 +3258,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.7419891357422,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[202].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3253,11 +3270,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.31800842285156,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[203].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3272,11 +3289,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.0399932861328,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[204].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3284,11 +3301,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.6160125732422,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[205].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3303,11 +3320,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.33799743652344,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[206].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3315,11 +3332,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.9139862060547,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[207].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3334,11 +3351,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[208].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3346,11 +3363,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,-81.10430908203125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[209].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3365,9 +3382,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3375,11 +3392,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-196.3240203857422,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[210].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3387,11 +3404,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-191.7480010986328,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[211].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3406,11 +3423,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-173.02601623535156,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[212].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3418,11 +3435,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-168.4499969482422,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[213].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3437,11 +3454,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-149.72801208496094,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[214].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3449,11 +3466,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-145.15200805664062,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[215].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3468,11 +3485,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-126.43000793457031,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[216].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3480,11 +3497,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-121.85401916503906,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[217].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3499,11 +3516,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-103.13199615478516,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[218].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3511,11 +3528,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-98.5560073852539,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[219].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3530,11 +3547,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-79.83399200439453,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[220].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3542,11 +3559,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-75.25800323486328,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[221].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3561,11 +3578,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-56.536006927490234,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[222].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3573,11 +3590,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-51.959999084472656,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[223].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3592,11 +3609,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.23800277709961,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[224].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3604,11 +3621,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.661996841430664,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[225].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3623,11 +3640,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.939996719360352,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[226].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3635,11 +3652,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.364006042480469,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[227].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3654,11 +3671,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.357992172241211,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[228].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3666,11 +3683,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.933998107910156,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[229].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3685,11 +3702,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.6559944152832,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[230].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3697,11 +3714,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23200225830078,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[231].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3716,11 +3733,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.95399856567383,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[232].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3728,11 +3745,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.5300064086914,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[233].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3747,11 +3764,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25200653076172,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[234].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3759,11 +3776,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82799530029297,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[235].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3778,11 +3795,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.55001068115234,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[236].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3790,11 +3807,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.1259994506836,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[237].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3809,11 +3826,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.8480224609375,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[238].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3821,11 +3838,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.42401123046875,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[239].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3840,11 +3857,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14598083496094,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[240].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3852,11 +3869,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.7220001220703,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[241].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3871,11 +3888,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44398498535156,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[242].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3883,11 +3900,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.02000427246094,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[243].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3902,11 +3919,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.7419891357422,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[244].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3914,11 +3931,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.31797790527344,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[245].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3933,11 +3950,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.0399932861328,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[246].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3945,11 +3962,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61598205566406,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[247].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3964,11 +3981,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.33799743652344,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[248].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3976,11 +3993,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.9139862060547,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[249].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -3995,11 +4012,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[250].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4007,11 +4024,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,-54.704315185546875)"
-            opacity={Math.random() >= 0 ? "0" : "1"}
+            opacity={state[251].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4026,9 +4043,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4036,11 +4053,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.238014221191406,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[252].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4048,11 +4065,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.6619930267334,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[253].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4067,11 +4084,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.940010070800781,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[254].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4079,11 +4096,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.363988876342773,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[255].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4098,11 +4115,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.357994079589844,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[256].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4110,11 +4127,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.93400001525879,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[257].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4129,11 +4146,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.65599822998047,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[258].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4141,11 +4158,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23198699951172,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[259].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4160,11 +4177,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.954002380371094,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[260].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4172,11 +4189,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.52999114990234,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[261].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4191,11 +4208,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25200653076172,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[262].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4203,11 +4220,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82799530029297,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[263].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4222,11 +4239,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.54999542236328,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[264].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4234,11 +4251,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.1259994506836,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[265].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4253,11 +4270,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84800720214844,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[266].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4265,11 +4282,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.42401123046875,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[267].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4284,11 +4301,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14599609375,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[268].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4296,11 +4313,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.72198486328125,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[269].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4315,11 +4332,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44398498535156,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[270].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4327,11 +4344,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.01998901367188,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[271].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4346,11 +4363,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.7419891357422,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[272].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4358,11 +4375,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.3179931640625,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[273].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4377,11 +4394,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.0399932861328,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[274].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4389,11 +4406,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61599731445312,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[275].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4408,11 +4425,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.33799743652344,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[276].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4420,11 +4437,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.9139862060547,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[277].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4439,11 +4456,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[278].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4451,11 +4468,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,-28.3043212890625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[279].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4470,9 +4487,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4480,11 +4497,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-98.55601501464844,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[280].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4499,11 +4516,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-79.83399963378906,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[281].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4511,11 +4528,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-75.25801086425781,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[282].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4530,11 +4547,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-56.53599548339844,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[283].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4542,11 +4559,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-51.96000289916992,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[284].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4561,11 +4578,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.23799133300781,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[285].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4573,11 +4590,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.66200065612793,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[286].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4592,11 +4609,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.940001487731934,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[287].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4604,11 +4621,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.363995552062988,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[288].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4623,11 +4640,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.358002662658691,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[289].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4635,11 +4652,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.93400764465332,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[290].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4654,11 +4671,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.656005859375,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[291].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4666,11 +4683,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.231998443603516,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[292].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4685,11 +4702,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.95399475097656,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[293].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4697,11 +4714,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.52999877929688,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[294].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4716,11 +4733,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25199890136719,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[295].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4728,11 +4745,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.8280029296875,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[296].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4747,11 +4764,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.55000305175781,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[297].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4759,11 +4776,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.12599182128906,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[298].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4778,11 +4795,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84799194335938,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[299].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4790,11 +4807,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.4239959716797,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[300].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4809,11 +4826,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14599609375,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[301].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4821,11 +4838,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.7220001220703,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[302].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4840,11 +4857,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44398498535156,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[303].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4852,11 +4869,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.02000427246094,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[304].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4871,11 +4888,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.7419891357422,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[305].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4883,11 +4900,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.31800842285156,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[306].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4902,11 +4919,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.0399932861328,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[307].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4914,11 +4931,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.6160125732422,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[308].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4933,11 +4950,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.33799743652344,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[309].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4945,11 +4962,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.9139862060547,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[310].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4964,11 +4981,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[311].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4976,11 +4993,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,-1.904327392578125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[312].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -4995,9 +5012,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5005,11 +5022,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-145.15200805664062,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[313].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5024,11 +5041,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-126.42999267578125,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[314].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5036,11 +5053,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-121.85400390625,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[315].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5055,11 +5072,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-103.13199615478516,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[316].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5067,11 +5084,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-98.5560073852539,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[317].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5086,11 +5103,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-79.83399200439453,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[318].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5098,11 +5115,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-75.25800323486328,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[319].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5117,11 +5134,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-56.53600311279297,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[320].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5129,11 +5146,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-51.95999526977539,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[321].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5148,11 +5165,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.237998962402344,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[322].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5160,11 +5177,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.6619930267334,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[323].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5179,11 +5196,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.939993858337402,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[324].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5191,11 +5208,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.3640031814575195,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[325].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5210,11 +5227,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.35799503326416,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[326].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5222,11 +5239,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.93400001525879,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[327].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5241,11 +5258,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.65599822998047,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[328].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5253,11 +5270,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23200607299805,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[329].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5272,11 +5289,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.954002380371094,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[330].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5284,11 +5301,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.52999114990234,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[331].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5303,11 +5320,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25199127197266,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[332].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5315,11 +5332,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82799530029297,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[333].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5334,11 +5351,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.54999542236328,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[334].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5346,11 +5363,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.1259994506836,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[335].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5365,11 +5382,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84799194335938,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[336].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5377,11 +5394,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.42401123046875,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[337].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5396,11 +5413,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14599609375,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[338].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5408,11 +5425,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.72201538085938,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[339].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5427,11 +5444,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44400024414062,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[340].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5439,11 +5456,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.02001953125,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[341].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5458,11 +5475,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.74200439453125,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[342].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5470,11 +5487,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.3179931640625,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[343].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5489,11 +5506,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.04000854492188,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[344].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5501,11 +5518,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61599731445312,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[345].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5520,11 +5537,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.3380126953125,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[346].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5532,11 +5549,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.91400146484375,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[347].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5551,11 +5568,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[348].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5563,11 +5580,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,24.49566650390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[349].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5582,9 +5599,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5592,11 +5609,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-242.92001342773438,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[350].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5604,11 +5621,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-238.343994140625,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[351].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5623,11 +5640,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-219.62200927734375,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[352].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5635,11 +5652,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-215.04598999023438,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[353].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5654,11 +5671,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-196.32400512695312,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[354].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5666,11 +5683,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-191.7480010986328,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[355].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5685,11 +5702,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-173.0260009765625,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[356].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5697,11 +5714,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-168.45001220703125,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[357].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5716,11 +5733,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-149.72799682617188,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[358].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5728,11 +5745,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-145.15200805664062,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[359].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5747,11 +5764,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-126.42999267578125,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[360].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5759,11 +5776,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-121.85400390625,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[361].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5778,11 +5795,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-103.13200378417969,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[362].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5790,11 +5807,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-98.55599975585938,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[363].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5809,11 +5826,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-79.83399963378906,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[364].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5821,11 +5838,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-75.25799560546875,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[365].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5840,11 +5857,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-56.53599548339844,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[366].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5852,11 +5869,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-51.96000289916992,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[367].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5871,11 +5888,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.238006591796875,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[368].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5883,11 +5900,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.66200065612793,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[369].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5902,11 +5919,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.940003395080566,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[370].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5914,11 +5931,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.363997459411621,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[371].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5933,11 +5950,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.358000755310059,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[372].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5945,11 +5962,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.934005737304688,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[373].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5964,11 +5981,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.656005859375,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[374].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5976,11 +5993,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23199462890625,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[375].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -5995,11 +6012,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.954010009765625,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[376].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6007,11 +6024,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.52999877929688,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[377].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6026,11 +6043,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25201416015625,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[378].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6038,11 +6055,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.8280029296875,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[379].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6057,11 +6074,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.54998779296875,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[380].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6069,11 +6086,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.12600708007812,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[381].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6088,11 +6105,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84799194335938,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[382].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6100,11 +6117,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.42401123046875,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[383].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6119,11 +6136,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14599609375,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[384].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6131,11 +6148,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.72198486328125,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[385].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6150,11 +6167,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44400024414062,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[386].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6162,11 +6179,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.01998901367188,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[387].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6181,11 +6198,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.74200439453125,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[388].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6193,11 +6210,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.3179931640625,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[389].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6212,11 +6229,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.04000854492188,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[390].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6224,11 +6241,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61599731445312,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[391].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6243,11 +6260,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.3380126953125,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[392].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6255,11 +6272,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.91400146484375,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[393].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6274,11 +6291,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.635986328125,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[394].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6286,11 +6303,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,50.895660400390625)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[395].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6305,9 +6322,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6315,11 +6332,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.93398666381836,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[396].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6334,11 +6351,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.65599822998047,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[397].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6346,11 +6363,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.231990814208984,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[398].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6365,11 +6382,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.954002380371094,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[399].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6377,11 +6394,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.52999114990234,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[400].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6396,11 +6413,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25200653076172,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[401].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6408,11 +6425,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82799530029297,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[402].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6427,11 +6444,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.54999542236328,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[403].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6439,11 +6456,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.1259994506836,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[404].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6458,11 +6475,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84800720214844,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[405].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6470,11 +6487,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.42401123046875,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[406].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6489,11 +6506,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14601135253906,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[407].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6501,11 +6518,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.7220001220703,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[408].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6520,11 +6537,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44400024414062,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[409].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6532,11 +6549,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.02000427246094,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[410].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6551,11 +6568,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.74200439453125,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[411].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6563,11 +6580,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.31800842285156,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[412].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6582,11 +6599,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.04000854492188,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[413].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6594,11 +6611,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61599731445312,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[414].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6613,11 +6630,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.33799743652344,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[415].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6625,11 +6642,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.91400146484375,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[416].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6644,11 +6661,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[417].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6656,11 +6673,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,77.295654296875)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[418].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6675,9 +6692,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6685,11 +6702,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.357985496520996,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[419].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6697,11 +6714,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.934005737304688,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[420].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6716,11 +6733,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.65599060058594,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[421].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6728,11 +6745,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23200988769531,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[422].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6747,11 +6764,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.95399475097656,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[423].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6759,11 +6776,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.52999877929688,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[424].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6778,11 +6795,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25199890136719,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[425].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6790,11 +6807,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82798767089844,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[426].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6809,11 +6826,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.55000305175781,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[427].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6821,11 +6838,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.12599182128906,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[428].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6840,11 +6857,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84800720214844,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[429].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6852,11 +6869,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.4239959716797,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[430].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6871,11 +6888,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14599609375,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[431].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6883,11 +6900,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.7220001220703,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[432].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6902,11 +6919,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44400024414062,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[433].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6914,11 +6931,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.02000427246094,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[434].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6933,11 +6950,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.74200439453125,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[435].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6945,11 +6962,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.3179931640625,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[436].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6964,11 +6981,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.0399932861328,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[437].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6976,11 +6993,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61599731445312,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[438].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -6995,11 +7012,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.33799743652344,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[439].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7007,11 +7024,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.91400146484375,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[440].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7026,11 +7043,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[441].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7038,11 +7055,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,103.69564819335938)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[442].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7057,9 +7074,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7067,11 +7084,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-196.3240203857422,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[443].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7079,11 +7096,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-191.7480010986328,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[444].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7098,11 +7115,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-173.02601623535156,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[445].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7110,11 +7127,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-168.4499969482422,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[446].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7129,11 +7146,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-149.72801208496094,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[447].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7141,11 +7158,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-145.15200805664062,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[448].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7160,11 +7177,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-126.43000793457031,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[449].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7172,11 +7189,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-121.85401916503906,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[450].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7191,11 +7208,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-103.13199615478516,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[451].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7203,11 +7220,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-98.5560073852539,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[452].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7222,11 +7239,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-79.83399200439453,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[453].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7234,11 +7251,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-75.25800323486328,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[454].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7253,11 +7270,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-56.536006927490234,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[455].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7265,11 +7282,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-51.959999084472656,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[456].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7284,11 +7301,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.23800277709961,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[457].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7296,11 +7313,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.661996841430664,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[458].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7315,11 +7332,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.939996719360352,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[459].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7327,11 +7344,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.364006042480469,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[460].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7346,11 +7363,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.357992172241211,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[461].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7358,11 +7375,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.933998107910156,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[462].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7377,11 +7394,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.6559944152832,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[463].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7389,11 +7406,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23200225830078,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[464].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7408,11 +7425,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.95399856567383,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[465].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7420,11 +7437,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.5300064086914,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[466].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7439,11 +7456,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25200653076172,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[467].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7451,11 +7468,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82799530029297,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[468].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7470,11 +7487,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.55001068115234,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[469].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7482,11 +7499,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.1259994506836,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[470].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7501,11 +7518,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.8480224609375,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[471].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7513,11 +7530,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.42401123046875,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[472].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7532,11 +7549,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14598083496094,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[473].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7544,11 +7561,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.7220001220703,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[474].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7563,11 +7580,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44398498535156,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[475].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7575,11 +7592,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.02000427246094,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[476].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7594,11 +7611,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.7419891357422,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[477].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7606,11 +7623,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.31797790527344,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[478].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7625,11 +7642,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.0399932861328,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[479].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7637,11 +7654,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61598205566406,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[480].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7656,11 +7673,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.33799743652344,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[481].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7668,11 +7685,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.9139862060547,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[482].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7687,11 +7704,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[483].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7699,11 +7716,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,130.09564208984375)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[484].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7718,9 +7735,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7728,11 +7745,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.655982971191406,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[485].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7740,11 +7757,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23200607299805,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[486].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7759,11 +7776,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.95398712158203,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[487].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7771,11 +7788,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.5300064086914,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[488].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7790,11 +7807,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25199127197266,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[489].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7802,11 +7819,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82799530029297,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[490].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7821,11 +7838,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.54999542236328,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[491].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7833,11 +7850,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.12598419189453,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[492].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7852,11 +7869,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84800720214844,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[493].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7864,11 +7881,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.4239959716797,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[494].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7883,11 +7900,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14601135253906,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[495].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7895,11 +7912,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.7220001220703,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[496].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7914,11 +7931,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44400024414062,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[497].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7926,11 +7943,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.02000427246094,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[498].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7945,11 +7962,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.74200439453125,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[499].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7957,11 +7974,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.31800842285156,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[500].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7976,11 +7993,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.04000854492188,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[501].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -7988,11 +8005,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61599731445312,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[502].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8007,11 +8024,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.33799743652344,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[503].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8019,11 +8036,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.91400146484375,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[504].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8038,11 +8055,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[505].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8050,11 +8067,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,156.49563598632812)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[506].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8069,9 +8086,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8079,11 +8096,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-103.13201904296875,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[507].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8091,11 +8108,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-98.55599975585938,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[508].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8110,11 +8127,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-79.83401489257812,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[509].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8122,11 +8139,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-75.25799560546875,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[510].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8141,11 +8158,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-56.536006927490234,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[511].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8153,11 +8170,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-51.959999084472656,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[512].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8172,11 +8189,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.23800277709961,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[513].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8184,11 +8201,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.662012100219727,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[514].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8203,11 +8220,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.939997673034668,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[515].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8215,11 +8232,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.364006996154785,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[516].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8234,11 +8251,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.358006477355957,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[517].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8246,11 +8263,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.933996200561523,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[518].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8265,11 +8282,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.6559944152832,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[519].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8277,11 +8294,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.23200225830078,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[520].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8296,11 +8313,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.95399856567383,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[521].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8308,11 +8325,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.5300064086914,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[522].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8327,11 +8344,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25199890136719,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[523].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8339,11 +8356,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.82798767089844,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[524].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8358,11 +8375,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.54998779296875,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[525].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8370,11 +8387,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.12599182128906,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[526].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8389,11 +8406,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84799194335938,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[527].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8401,11 +8418,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.4239959716797,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[528].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8420,11 +8437,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14599609375,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[529].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8432,11 +8449,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.7220001220703,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[530].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8451,11 +8468,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44400024414062,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[531].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8463,11 +8480,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.01998901367188,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[532].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8482,11 +8499,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.74200439453125,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[533].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8494,11 +8511,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.3179931640625,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[534].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8513,11 +8530,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.04000854492188,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[535].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8525,11 +8542,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61599731445312,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[536].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8544,11 +8561,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.33798217773438,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[537].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8556,11 +8573,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.91400146484375,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[538].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8575,11 +8592,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.6360168457031,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[539].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8587,11 +8604,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120361328125,182.8956298828125)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[540].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8606,9 +8623,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8616,11 +8633,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-79.83401489257812,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[541].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8628,11 +8645,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-75.25799560546875,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[542].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8647,11 +8664,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-56.5360107421875,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[543].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8659,11 +8676,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-51.95998764038086,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[544].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8678,11 +8695,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-33.238006591796875,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[545].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8690,11 +8707,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-28.66200065612793,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[546].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8709,11 +8726,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-9.940001487731934,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[547].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8721,11 +8738,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,-5.364010810852051,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[548].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8740,11 +8757,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,13.358002662658691,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[549].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8752,11 +8769,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,17.933992385864258,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[550].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8771,11 +8788,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,36.656005859375,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[551].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8783,11 +8800,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,41.231998443603516,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[552].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8802,11 +8819,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,59.95399475097656,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[553].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8814,11 +8831,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,64.52999877929688,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[554].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8833,11 +8850,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,83.25199890136719,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[555].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8845,11 +8862,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,87.8280029296875,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[556].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8864,11 +8881,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,106.55000305175781,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[557].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8876,11 +8893,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,111.12599182128906,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[558].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8895,11 +8912,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,129.84799194335938,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[559].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8907,11 +8924,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,134.4239959716797,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[560].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8926,11 +8943,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,153.14599609375,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[561].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8938,11 +8955,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,157.7220001220703,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[562].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8957,11 +8974,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,176.44400024414062,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[563].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8969,11 +8986,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,181.02000427246094,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[564].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -8988,11 +9005,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,199.74200439453125,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[565].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -9000,11 +9017,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,204.3179931640625,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[566].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -9019,11 +9036,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,223.04000854492188,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[567].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -9031,11 +9048,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,227.61599731445312,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[568].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -9050,11 +9067,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,246.3380126953125,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[569].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -9062,11 +9079,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,250.91400146484375,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[570].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -9081,11 +9098,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,269.635986328125,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[571].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -9093,11 +9110,11 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             transform="matrix(1,0,0,1,274.2120056152344,209.29562377929688)"
-            opacity={Math.random() >= 0.5 ? "0" : "1"}
+            opacity={state[572].opacity}
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">
@@ -9112,9 +9129,9 @@ M M M M M M M M M M M M
             </g>
           </g>
           <g
-            stroke-linecap="butt"
-            stroke-linejoin="round"
-            stroke-miterlimit="4"
+            strokeLinecap="butt"
+            strokeLinejoin="round"
+            strokeMiterlimit="4"
             style={{ display: "inherit" }}
           >
             <g transform="scale(0.22,0.22)">

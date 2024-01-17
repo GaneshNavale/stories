@@ -24,8 +24,7 @@ const Home = () => {
       <NavBar />
       <Banner />
       {!state.isLoading &&
-        state.posts.map((post) => {
-          console.log("blocks", post.data?.blocks);
+        state.posts.map((post, i) => {
           const paragraphs = post.data?.blocks.filter(
             (item) => item.type === "paragraph"
           );
@@ -33,7 +32,7 @@ const Home = () => {
             (item) => item.type === "heading" && item.data.level === 2
           );
           return (
-            <div className="story">
+            <div key={i} className="story">
               {heading && (
                 <Link to="/editPost" state={{ id: post.id }}>
                   <Header level={1} text={heading.data.text} />
@@ -46,8 +45,7 @@ const Home = () => {
           );
         })}
       {!state.isLoading &&
-        state.posts.map((post) => {
-          console.log("blocks", post.data?.blocks);
+        state.posts.map((post, i) => {
           const paragraphs = post.data?.blocks.filter(
             (item) => item.type === "paragraph"
           );
@@ -55,7 +53,7 @@ const Home = () => {
             (item) => item.type === "heading" && item.data.level === 2
           );
           return (
-            <div className="story">
+            <div key={i} className="story">
               {heading && (
                 <Link to="/editPost" state={{ id: post.id }}>
                   <Header level={1} text={heading.data.text} />
