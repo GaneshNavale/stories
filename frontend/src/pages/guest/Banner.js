@@ -5,12 +5,12 @@ import RandomSGrid2 from "./RandomSGrid2";
 const Banner = () => {
   return (
     <div className="banner">
-      <Container>
+      <Container className="bannerContainer">
         <Row>
-          <Col>
-            <div id="banner-img-box">
+          <Col lg="6" md="2" sm="12">
+            <div className="bannerDiv">
               <h1>Stay curious.</h1>
-              <p>
+              <p style={{ width: "440px" }}>
                 Discover stories, thinking, and expertise from writers on any
                 topic.
               </p>
@@ -19,8 +19,10 @@ const Banner = () => {
               </button>
             </div>
           </Col>
-          <Col>
-            <RandomSGrid2 />
+          <Col lg="6" md="10" sm="12">
+            <div className="bannerSvg">
+              <RandomSGrid2 />
+            </div>
           </Col>
         </Row>
       </Container>
