@@ -14,9 +14,7 @@ const Banner = () => {
                 Discover stories, thinking, and expertise from writers on any
                 topic.
               </p>
-              <button onClick={() => {}}>
-                {/* <PopupModal mainTitle="Start reading" /> */}
-              </button>
+              <button onClick={() => {}}>Start Reading</button>
             </div>
           </Col>
           <Col lg="6" md="10" sm="12">

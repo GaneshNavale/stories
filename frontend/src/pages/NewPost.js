@@ -6,6 +6,7 @@ import List from "@editorjs/list";
 import { useEffect, useRef, useState } from "react";
 import ImageTool from "@editorjs/image";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 
 const NewPost = (props) => {
@@ -98,7 +99,13 @@ const NewPost = (props) => {
     };
   }, []);
 
-  return <div id="editorjs"></div>;
+  return (
+    <>
+      <div id="editorjs"></div>
+      <Link to="/">Home</Link>
+      <button onClick={createPost}>Create Post</button>;
+    </>
+  );
 };
 
 export default NewPost;

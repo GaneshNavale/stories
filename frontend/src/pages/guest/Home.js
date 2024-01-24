@@ -2,9 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Parser, Paragraph, Header } from "@alkhipce/editorjs-react";
 import { Link } from "react-router-dom";
-import NewPost from "../../pages/NewPost";
 import NavBar from "./NavBar";
 import Banner from "./Banner";
+import Blogs from "./Blogs";
+import SidePanel from "../../components/SidePanel";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import "./Home.scss";
 
 const Home = () => {
   const [state, setState] = useState({ posts: [], isLoading: true });
@@ -23,48 +28,27 @@ const Home = () => {
     <>
       <NavBar />
       <Banner />
-      {!state.isLoading &&
-        state.posts.map((post, i) => {
-          const paragraphs = post.data?.blocks.filter(
-            (item) => item.type === "paragraph"
-          );
-          const heading = post.data?.blocks.find(
-            (item) => item.type === "heading" && item.data.level === 2
-          );
-          return (
-            <div key={i} className="story">
-              {heading && (
-                <Link to="/editPost" state={{ id: post.id }}>
-                  <Header level={1} text={heading.data.text} />
-                </Link>
-              )}
-              {(paragraphs || []).map((item) => {
-                return <Paragraph key={item.id} text={item.data.text} />;
-              })}
+      <Container>
+        <Row>
+          <Col md={8}>
+            <div className="display-container">
+              <div className="part-first">
+                <Blogs />
+              </div>
             </div>
-          );
-        })}
-      {!state.isLoading &&
-        state.posts.map((post, i) => {
-          const paragraphs = post.data?.blocks.filter(
-            (item) => item.type === "paragraph"
-          );
-          const heading = post.data?.blocks.find(
-            (item) => item.type === "heading" && item.data.level === 2
-          );
-          return (
-            <div key={i} className="story">
-              {heading && (
-                <Link to="/editPost" state={{ id: post.id }}>
-                  <Header level={1} text={heading.data.text} />
-                </Link>
-              )}
-              {(paragraphs || []).map((item) => {
-                return <Paragraph key={item.id} text={item.data.text} />;
-              })}
+          </Col>
+          <Col md={4}>
+            <div className="display-container">
+              <div className="vertical-line"></div>
+              <div className="part-two">
+                <div className="sticky-sm-top">
+                  <SidePanel />
+                </div>
+              </div>
             </div>
-          );
-        })}
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };

@@ -3,9 +3,11 @@ import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import "./NavBar.scss";
 import logo from "./../../logo.svg";
+import SignIn from "../../components/SignIn";
 
 const NavBar = () => {
   const [navbar, setNavbar] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
 
   const changeBackground = () => {
     if (window.scrollY >= 580) {
@@ -35,11 +37,17 @@ const NavBar = () => {
                 <Nav.Link as={NavLink} to="/newPost" className="navLink">
                   Write
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/contact" className="navLink">
+                <Nav.Link
+                  as={NavLink}
+                  className="navLink"
+                  onClick={() => setShowSignInModal(true)}
+                >
                   Sign in
                 </Nav.Link>
                 <Button
-                  onClick={() => {}}
+                  onClick={() => {
+                    setShowSignInModal();
+                  }}
                   style={{
                     background: navbar ? "#3dac66" : "black",
                     color: "white",
@@ -58,6 +66,7 @@ const NavBar = () => {
           </Nav>
         </Container>
       </Navbar>
+      <SignIn show={showSignInModal} onHide={() => setShowSignInModal(false)} />
     </>
   );
 };

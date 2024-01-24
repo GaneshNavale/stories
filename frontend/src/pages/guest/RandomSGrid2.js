@@ -45,10 +45,10 @@ const RandomSGrid2 = () => {
       height="462"
       preserveAspectRatio="xMidYMid meet"
       style={{
-        "width": "585",
-        "height": "462",
-        "transform": "translate3d(0px, 0px, 0px)",
-        "contentVisibility": "visible",
+        width: "585",
+        height: "462",
+        transform: "translate3d(0px, 0px, 0px)",
+        contentVisibility: "visible",
       }}
     >
       <defs>
