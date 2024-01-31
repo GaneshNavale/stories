@@ -10,17 +10,12 @@ const RandomSGrid2 = () => {
     }))
   );
 
-  useEffect(() => {
-    console.log("Opacity changed:", state[1]?.opacity);
-  }, [state]);
-
   const updateOpacity = useCallback(
     (indices) => {
       const newState = [...state];
       indices.forEach((index) => {
         newState[index].opacity = newState[index].opacity === "0" ? "1" : "0";
       });
-      console.log("newState", newState[0]?.opacity);
       setState(newState);
     },
     [state] // No dependencies since useCallback is used properly
@@ -29,7 +24,6 @@ const RandomSGrid2 = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       const randomIndices = Array.from({ length: 5 }, () => Math.floor(Math.random() * 573));
-      console.log('changed', randomIndices);
       updateOpacity(randomIndices);
     }, 150);
 

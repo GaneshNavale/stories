@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@editorjs/editorjs": "^2.28.2",
+    "axios": "^1.6.5",
+    "react-axios": "^2.0.6"
+  }
+}

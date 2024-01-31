@@ -5,6 +5,8 @@ import NewPost from "./pages/NewPost";
 import EditPost from "./pages/EditPost";
 import Display from "./pages/DisplayPost";
 import SignIn from "./components/SignIn";
+import GetStarted from "./components/GetStarted";
+import SignUpWithMail from "./components/SignUpWithMail";
 
 const routes = [
   { path: "/", component: <Home />, exact: true },
@@ -14,6 +16,8 @@ const routes = [
   { path: "/editPost", component: <EditPost /> },
   { path: "/displaypost", component: <Display /> },
   { path: "/signIn", component: <SignIn /> },
+  { path: "/getStarted", component: <GetStarted /> },
+  { path: "/signUpWithMail", component: <SignUpWithMail /> },
 ];
 
 export default routes;
