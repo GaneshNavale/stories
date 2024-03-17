@@ -12,7 +12,7 @@ class User < ApplicationRecord
     super.merge({id: self.id, email: self.email, first_name: self.first_name, last_name: self.last_name})
   end
 
-  def user_name
+  def username
     "#{first_name} #{last_name}"
   end
 

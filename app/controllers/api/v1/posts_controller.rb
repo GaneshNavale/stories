@@ -3,7 +3,7 @@ class Api::V1::PostsController < ApplicationController
 
   before_action :authenticate_user!, only: [:create, :update]
   def index
-    @posts = Post.include(:user)
+    @posts = Post.includes(:user)
     render json: { success:1, posts: @posts }
   end
 

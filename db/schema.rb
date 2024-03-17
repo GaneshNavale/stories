@@ -66,8 +66,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_17_161936) do
     t.datetime "updated_at", null: false
     t.jsonb "data"
     t.integer "user_id"
-    t.integer "comment_count", default: 0
-    t.integer "like_count", default: 0
+    t.integer "comments_count", default: 0
+    t.integer "likes_count", default: 0
   end
 
   create_table "users", force: :cascade do |t|

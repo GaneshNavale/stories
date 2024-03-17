@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   before_action :find_comment, only: [:update, :destroy]
 
   def index
-    @comments = @post.comments
+    @comments = @post.comments.includes(:user)
   end
 
   def create
