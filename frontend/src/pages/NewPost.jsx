@@ -6,7 +6,6 @@ import List from "@editorjs/list";
 import { useEffect, useRef, useState } from "react";
 import ImageTool from "@editorjs/image";
 import axios from "axios";
-import NewPostNav from "./NewPostNav";
 import "./NewPost.scss";
 import { useAuth } from "../hooks/useAuth";
 
@@ -110,7 +109,6 @@ const NewPost = () => {
   return (
     <>
       <div id="editorjs" className="give-top"></div>
-      <NewPostNav />
       <button onClick={createPost} className="give-top">
         Create Post
       </button>

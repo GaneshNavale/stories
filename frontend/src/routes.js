@@ -4,9 +4,9 @@ import Contact from "./pages/Contact";
 import NewPost from "./pages/NewPost";
 import EditPost from "./pages/EditPost";
 import Display from "./pages/DisplayPost";
-import SignIn from "./components/AuthenticationComponents/SignIn";
-import GetStarted from "./components/AuthenticationComponents/GetStarted";
-import SignUpWithMail from "./components/AuthenticationComponents/SignUpWithMail";
+import SignIn from "./components/Authentication/SignIn";
+import GetStarted from "./components/Authentication/GetStarted";
+import SignUpWithMail from "./components/Authentication/SignUpWithMail";
 
 const routes = [
   { path: "/", component: <Home />, exact: true },
