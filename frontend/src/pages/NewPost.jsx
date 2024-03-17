@@ -65,7 +65,7 @@ const NewPost = () => {
                   {
                     headers: {
                       "Content-Type": "multipart/form-data",
-                      "Authorization": user.token,
+                      Authorization: user.token,
                     },
                     withCredentials: false,
                   }
@@ -111,12 +111,9 @@ const NewPost = () => {
     <>
       <div id="editorjs" className="give-top"></div>
       <NewPostNav />
-      {/* 
-      <div className="newpost-container give-top"> */}
       <button onClick={createPost} className="give-top">
         Create Post
       </button>
-      {/* </div> */}
     </>
   );
 };

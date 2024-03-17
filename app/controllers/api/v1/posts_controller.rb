@@ -2,7 +2,6 @@ class Api::V1::PostsController < ApplicationController
   include Rails.application.routes.url_helpers
 
   before_action :authenticate_user!, only: [:create, :update]
-
   def index
     @posts = Post.all
     render json: { success:1, posts: @posts }

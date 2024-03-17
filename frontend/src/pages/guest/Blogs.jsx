@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Parser, Paragraph, Header } from "@alkhipce/editorjs-react";
+import { Paragraph, Header } from "@alkhipce/editorjs-react";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../../components/BlogList.scss";
 
-const Blogs = ({ signup }) => {
+const Blogs = () => {
   const [state, setState] = useState({ posts: [], isLoading: true });
 
   useEffect(() => {
