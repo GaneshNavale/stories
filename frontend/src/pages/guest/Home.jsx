@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import AuthenticatedNavbar from "../../components/AuthenticatedNavbar";
+import React from "react";
 import Banner from "./Banner";
 import Blogs from "./Blogs";
 import SidePanel from "../../components/SidePanel";

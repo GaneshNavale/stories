@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../../components/BlogList.scss";
 
-const Blogs = ({ signup }) => {
+const Blogs = () => {
   const [state, setState] = useState({ posts: [], isLoading: true });
 
   useEffect(() => {

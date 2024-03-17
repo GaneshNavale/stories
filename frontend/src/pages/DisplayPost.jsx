@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./DisplayPost.scss";
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row'; // Fix import statement
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row"; // Fix import statement
 import Container from "react-bootstrap/Container";
 import { Paragraph, Header } from "@alkhipce/editorjs-react";
 import { useLocation, Link } from "react-router-dom";
-import AuthenticatedNavbar from "../components/AuthenticatedNavbar";
 
 const DisplayPost = (props) => {
   let { state } = useLocation();
@@ -61,16 +60,16 @@ const DisplayPost = (props) => {
 
   return (
     <>
-      {/* <AuthenticatedNavbar /> */}
       <Link to="/">Home</Link>
       <div className="display-story" key={postId}>
         <Container>
           <Row>
-            <Col sm={4}>
-            </Col>
+            <Col sm={4}></Col>
             <Col sm={6} className="text-left">
               <div>
-                <p className="total-time">{calculateTotalReadingTime()}Min Read</p>
+                <p className="total-time">
+                  {calculateTotalReadingTime()}Min Read
+                </p>
                 {post.blocks &&
                   post.blocks.map((block, index) => (
                     <div key={index}>
@@ -95,8 +94,7 @@ const DisplayPost = (props) => {
                   ))}
               </div>
             </Col>
-            <Col sm={2}>
-            </Col>
+            <Col sm={2}></Col>
           </Row>
         </Container>
         <Container className="mt-3">
