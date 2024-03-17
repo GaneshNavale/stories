@@ -3,27 +3,26 @@ class Api::V1::PostsController < ApplicationController
 
   before_action :authenticate_user!, only: [:create, :update]
   def index
-    @posts = Post.all
+    @posts = Post.include(:user)
     render json: { success:1, posts: @posts }
   end
 
   def create
-    post = Post.new(data: params[:data])
-    post.user_id = current_user.id
-    post.save!
-    render json: {success: 1, data: post.data}
+    @post = Post.new(data: params[:data])
+    @post.user_id = current_user.id
+    @post.save!
+    render :show
   end
 
   def update
-    post = Post.find(params[:id])
-    post.data = params[:data]
-    post.save!
-    render json: {success: 1, data: post.data}
+    @post = Post.find(params[:id])
+    @post.data = params[:data]
+    @post.save!
+    render :show
   end
 
   def show
-    post = Post.find(params[:id])
-    render json: {success: 1, data: post.data}
+    @post = Post.find(params[:id])
   end
 
   def upload_image
