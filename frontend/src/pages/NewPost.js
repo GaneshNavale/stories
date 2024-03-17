@@ -6,19 +6,24 @@ import List from "@editorjs/list";
 import { useEffect, useRef, useState } from "react";
 import ImageTool from "@editorjs/image";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import Container from "react-bootstrap/Container";
 import NewPostNav from "./NewPostNav";
-import "./NewPost.scss"
+import "./NewPost.scss";
+import { useAuth } from "../hooks/useAuth";
 
 const NewPost = () => {
+  const { user } = useAuth();
+  console.log("New post", user);
   const ejInstance = useRef();
   const [editorContent, setEditorContent] = useState({});
 
   const createPost = async () => {
-    const response = await axios.post("http://localhost:3000/api/v1/posts", {
-      data: editorContent,
-    });
+    const response = await axios.post(
+      "http://localhost:3000/api/v1/posts",
+      {
+        data: editorContent,
+      },
+      { headers: { Authorization: user.token } }
+    );
     console.log("Post create Response ", response);
   };
 
@@ -60,6 +65,7 @@ const NewPost = () => {
                   {
                     headers: {
                       "Content-Type": "multipart/form-data",
+                      "Authorization": user.token,
                     },
                     withCredentials: false,
                   }
@@ -103,12 +109,13 @@ const NewPost = () => {
 
   return (
     <>
-      
       <div id="editorjs" className="give-top"></div>
       <NewPostNav />
       {/* 
       <div className="newpost-container give-top"> */}
-        <button onClick={createPost} className="give-top">Create Post</button>
+      <button onClick={createPost} className="give-top">
+        Create Post
+      </button>
       {/* </div> */}
     </>
   );

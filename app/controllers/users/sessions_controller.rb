@@ -7,9 +7,10 @@ class Users::SessionsController < Devise::SessionsController
 
   def respond_with(current_user, _opts = {})
     render json: {
-      status: {
-        code: 200, message: 'Logged in successfully.',
-        data: {id: current_user.id, email: current_user.email, first_name: current_user.first_name, last_name: current_user.last_name}
+      data: {
+        user: {id: current_user.id, email: current_user.email, first_name: current_user.first_name, last_name: current_user.last_name},
+        status: 200,
+        message: 'Logged in successfully.'
       }
     }, status: :ok
   end

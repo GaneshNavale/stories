@@ -1,17 +1,18 @@
 import "./App.scss";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import routes from "./routes";
-
+import NavBar from "./pages/guest/NavBar";
+import { useAuth } from "./hooks/useAuth";
 function App() {
+  const { user } = useAuth();
   return (
     <>
-      <Router>
-        <Routes>
-          {routes.map((route, index) => (
-            <Route key={index} path={route.path} element={route.component} />
-          ))}
-        </Routes>
-      </Router>
+      <NavBar user={user} />
+      <Routes>
+        {routes.map((route, index) => (
+          <Route key={index} path={route.path} element={route.component} />
+        ))}
+      </Routes>
     </>
   );
 }
