@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Navbar, Nav, Container, Row, Col, Form, Dropdown } from "react-bootstrap";
 import logo from "../logo.svg";
 
-const AuthenticatedNavbar = ({ signup, handleSignUpData }) => {
+const AuthenticatedNavbar = ({ userName }) => {
   const [navbar, setNavbar] = useState(false);
   const [signIn, setSignIn] = useState();
 
@@ -17,11 +17,12 @@ const AuthenticatedNavbar = ({ signup, handleSignUpData }) => {
   };
   window.addEventListener("scroll", changeBackground);
 
-  const handleSignOut = () =>{
-    setSignIn(null);
-    handleSignUpData(signIn)
-  }
+  // const handleSignOut = () =>{
+  //   setSignIn(null);
+  //   handleSignUpData(signIn)
+  // }
 
+  console.log("userName", userName)
   return (
     <>
       <Navbar bg="light" expand="md" className="nav" fixed="top">
@@ -42,7 +43,7 @@ const AuthenticatedNavbar = ({ signup, handleSignUpData }) => {
                 </Nav.Link>
                 <Dropdown>
                   <Dropdown.Toggle variant="link" id="dropdown-basic" className="custom-dropdown-toggle">
-                    {(signup.status.data.first_name && signup.status.data.first_name.toUpperCase())}
+                    {userName}
                   </Dropdown.Toggle>
                   <Dropdown.Menu className="custom-dropdown-menu">
                     <Dropdown.Item as={NavLink} to="/profile">
@@ -58,9 +59,9 @@ const AuthenticatedNavbar = ({ signup, handleSignUpData }) => {
                       Saved
                     </Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item as={NavLink} onClick={handleSignOut} className="sign-out-button">
+                    {/* <Dropdown.Item as={NavLink} onClick={handleSignOut} className="sign-out-button">
                       Sign Out
-                    </Dropdown.Item>
+                    </Dropdown.Item> */}
                   </Dropdown.Menu>
                 </Dropdown>
               </div>

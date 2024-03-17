@@ -22,8 +22,14 @@ function SignUpWithMail(props) {
     };
 
     API.login(emailParams).then((response) => {
+      const userInfo = { authToken: response.headers.authorization, 
+                         name: response.data.status.data.first_name, 
+                         lastName: response.data.status.data.last_name,
+                         isPresent: true 
+                        }
       const storiesAuthToken = response.headers.authorization;
-      localStorage.setItem("StoriesAuthorizationToken", storiesAuthToken);
+
+      localStorage.setItem("UserInfo", JSON.stringify(userInfo));
 
       console.log("response", response);
       console.log("storiesAuthToken", storiesAuthToken);

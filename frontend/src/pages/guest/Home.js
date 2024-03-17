@@ -31,12 +31,17 @@ const Home = () => {
     console.log("SignUpDetail signup", signup);
   };
 
+  // access local storage
+  const userInfoString = localStorage.getItem('UserInfo');
+  const userInfo = JSON.parse(userInfoString);
+  console.log("userInfo", userInfoString);
+  console.log("userInfo Name", userInfo?.name);
+
   return (
     <>
-      {signup && signup.status && signup.status.code === 200 ? (
+      {userInfo && userInfo?.isPresent === true ? (
         <>
-          {console.log("SignUpDetail Home in component", signup.status.data.first_name)}
-          <AuthenticatedNavbar signup={ signup } handleSignUpData={ handleSignUpData } />
+          <AuthenticatedNavbar userName={userInfo.name} />
           <div className="AuthenticatedNavbar-container"></div>
           <Container>
             <Row>
