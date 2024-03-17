@@ -1,6 +1,8 @@
 class Api::V1::PostsController < ApplicationController
   include Rails.application.routes.url_helpers
 
+  before_action :authenticate_user!, only: [:create, :update]
+
   def index
     @posts = Post.all
     render json: { success:1, posts: @posts }
@@ -8,6 +10,7 @@ class Api::V1::PostsController < ApplicationController
 
   def create
     post = Post.new(data: params[:data])
+    post.user_id = current_user.id
     post.save!
     render json: {success: 1, data: post.data}
   end

@@ -1,4 +1,5 @@
 import Button from "react-bootstrap/Button";
+import "./SidePanel.css";
 
 const SidePanel = () => {
   return (

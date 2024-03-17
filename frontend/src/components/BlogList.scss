@@ -10,7 +10,6 @@
 .story {
   display: flex;
   width: 100%;
-  /* Adjust as needed */
 }
 
 
@@ -73,4 +72,16 @@
 .bi{
   margin-left: 10px;
   cursor: pointer;
+}
+
+.b1{
+  height: 10px;
+  width: auto;
+  font-size: 18px;
+}
+
+@media (max-width: 799px) {
+  .div-image {
+    display: none;
+  }
 }

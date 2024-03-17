@@ -8,8 +8,10 @@ import ImageTool from "@editorjs/image";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
+import NewPostNav from "./NewPostNav";
+import "./NewPost.scss"
 
-const NewPost = (props) => {
+const NewPost = () => {
   const ejInstance = useRef();
   const [editorContent, setEditorContent] = useState({});
 
@@ -53,7 +55,7 @@ const NewPost = (props) => {
                 formData.append("file", file);
 
                 const response = await axios.post(
-                  "http://localhost:3000/api/v1/posts/1/upload_image",
+                  "http://localhost:3000/api/v1/posts/72/upload_image",
                   formData,
                   {
                     headers: {
@@ -101,9 +103,13 @@ const NewPost = (props) => {
 
   return (
     <>
-      <div id="editorjs"></div>
-      <Link to="/">Home</Link>
-      <button onClick={createPost}>Create Post</button>;
+      
+      <div id="editorjs" className="give-top"></div>
+      <NewPostNav />
+      {/* 
+      <div className="newpost-container give-top"> */}
+        <button onClick={createPost} className="give-top">Create Post</button>
+      {/* </div> */}
     </>
   );
 };

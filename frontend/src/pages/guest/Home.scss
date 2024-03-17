@@ -1,0 +1,38 @@
+.display-container {
+  display: flex;
+}
+
+.part-two {
+  padding: 10px;
+}
+
+.vertical-line {
+  border-left: 2px solid #ccc;
+  height: 100%;
+  margin-left: 10px;
+}
+
+/* Sticky styles */
+// .part-two.sticky {
+//   position: fixed;
+//   top: 510px;
+//   /* Adjust the top offset as needed */
+//   z-index: 1;
+//   /* Optional: Set a higher z-index if necessary */
+//   background-color: #fff;
+//   /* Optional: Add a background color for visibility */
+//   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+//   /* Optional: Add a shadow effect */
+//   position: fixed;
+//     top: 590px;
+//     left: 0;
+//     width: 100%;
+//     z-index: 999;
+//     box-shadow:0px 4px 6px rgba(0, 0, 0, 0.1);
+//     background-color: #ffffff !important;
+//     align-items: right;
+// }
+
+.AuthenticatedNavbar-container{
+  margin-top: 60px;
+}

@@ -1,0 +1,38 @@
+.newpost-container {
+  position: fixed;
+  bottom: 20px;
+  /* Adjust the distance from the bottom as needed */
+  right: 20px;
+  /* Adjust the distance from the right as needed */
+}
+
+// .newpost-container button {
+//   font-size: 0.5cm;
+//   width: 120px;
+//   /* Optional: Set a fixed width for the button */
+//   height: 50px;
+//   /* Optional: Set a fixed height for the button */
+//   padding: 0;
+//   /* Remove default padding */
+//   background-color: #007bff;
+//   color: #ffffff;
+//   border: none;
+//   border-radius: 5px;
+//   cursor: pointer;
+// }
+
+/* Optional: Add some styles for a better visual appearance */
+.newpost-container button:hover {
+  background-color: #0056b3;
+  /* Change the hover background color as desired */
+}
+
+.bi{
+  height: 50px;
+  width: 50px;
+}
+
+.give-top {
+  margin-top: 100px;
+  /* Adjust the top margin as needed */
+}

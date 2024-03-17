@@ -4,19 +4,26 @@ import { NavLink } from "react-router-dom";
 import "./NavBar.scss";
 import logo from "./../../logo.svg";
 import SignIn from "../../components/SignIn";
+import CreateNewUser from "../../components/CreateNewUser";
+import SignUpWithMail from "../../components/SignUpWithMail";
 
-const NavBar = () => {
+const NavBar = ({ handleSignUpData }) => {
   const [navbar, setNavbar] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showGetStartInModal, setshowGetStartInModal] = useState(false);
 
   const changeBackground = () => {
-    if (window.scrollY >= 580) {
+    if (window.scrollY >= 480) {
       setNavbar(true);
     } else {
       setNavbar(false);
     }
   };
   window.addEventListener("scroll", changeBackground);
+
+  const handleNavBarSignUpData = (data) => {
+    handleSignUpData(data);
+  };
 
   return (
     <>
@@ -45,9 +52,7 @@ const NavBar = () => {
                   Sign in
                 </Nav.Link>
                 <Button
-                  onClick={() => {
-                    setShowSignInModal();
-                  }}
+                  onClick={() => setshowGetStartInModal(true)}
                   style={{
                     background: navbar ? "#3dac66" : "black",
                     color: "white",
@@ -66,7 +71,8 @@ const NavBar = () => {
           </Nav>
         </Container>
       </Navbar>
-      <SignIn show={showSignInModal} onHide={() => setShowSignInModal(false)} />
+      <SignIn show={showSignInModal} handleNavBarSignUpData={handleNavBarSignUpData} onHide={() => setShowSignInModal(false)} />
+      <CreateNewUser show={showGetStartInModal} onHide={() => setshowGetStartInModal(false)} />
     </>
   );
 };

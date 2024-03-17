@@ -19,8 +19,6 @@
   padding-top: 79px;
 }
 
-.bannerSvg svg {
-}
 
 .banner > div h1 {
   padding-top: 50px;
@@ -50,13 +48,52 @@
   width: 210px;
   font-weight: 400;
   opacity: 0.9;
-  /* position: sticky; */
-  /* bottom: 160px; */
-  /* left: 65px; */
-  /* z-index: 0; */
   opacity: 0.8;
 }
 .banner > div button:hover {
   opacity: 1;
   cursor: pointer;
+}
+
+@media (max-width: 1109px) {
+  .bannerDiv {
+    width: 100%;
+    text-align: left;
+  }
+
+  .bannerDiv p {
+    width: auto;
+    font-size: 25px;
+  }
+
+  .bannerSvg {
+    display: none;
+  }
+        .banner>div h1{
+      font-size: 90px;
+    }
+  
+        .banner> p{
+      font-size: 16px;
+    }
+}
+
+
+@media (max-width: 799px) {
+.banner> h1{
+    font-size: 80px;
+  }
+ .banner> p{
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 570px) {
+.banner> h1 {
+    font-size: 60px;
+  }
+
+ .banner> p {
+    font-size: 8px;
+  }
 }
