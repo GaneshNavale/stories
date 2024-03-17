@@ -8,10 +8,10 @@ import ImageTool from "@editorjs/image";
 import axios from "axios";
 import "./NewPost.scss";
 import { useAuth } from "../hooks/useAuth";
+import * as API from "../utils/api";
 
 const NewPost = () => {
   const { user } = useAuth();
-  console.log("New post", user);
   const ejInstance = useRef();
   const [editorContent, setEditorContent] = useState({});
 
@@ -23,7 +23,6 @@ const NewPost = () => {
       },
       { headers: { Authorization: user.token } }
     );
-    console.log("Post create Response ", response);
   };
 
   const initEditor = () => {
@@ -64,7 +63,7 @@ const NewPost = () => {
                   {
                     headers: {
                       "Content-Type": "multipart/form-data",
-                      Authorization: user.token,
+                      "Authorization": user.token,
                     },
                     withCredentials: false,
                   }

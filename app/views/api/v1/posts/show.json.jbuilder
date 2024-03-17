@@ -1,9 +1,9 @@
 # frozen_string_literal: true
   
-json.id               @post.id
-json.data             @post.data
-json.comment_count    @post.comment_count
-json.like_count       @post.like_count
+json.id                 @post.id
+json.data               @post.data
+json.comments_count     @post.comments_count
+json.likes_count        @post.likes_count
 
 json.user do
   json.id             @post.user_id

@@ -53,10 +53,10 @@ const Blogs = () => {
           const formattedDate = formatCreatedAt(post.created_at);
 
           return (
-            <Container>
+            <Container key={post.id}>
               <Row>
                 <Col md={8}>
-                  <div className="main-Container" key={post.id}>
+                  <div className="main-Container">
                     <div className="story">
                       <div className="display">
                         {heading && (

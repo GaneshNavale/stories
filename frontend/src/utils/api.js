@@ -14,7 +14,16 @@ export const updateUser = (id, params = {}) => {
 
 export const createUser = (params = {}) => {
   return axios.post("/signup", { user: params });
-  console.log("CreateUser :", params);
+};
+
+export const createPost = (data = {}) => {
+  return axios.post("/api/v1/posts", { data: data });
+};
+
+export const getPost = (id, params = {}) => {
+  console.log("get Post");
+
+  return axios.get(`/api/v1/posts/${id}`, { params: params });
 };
 
 export const login = (params = {}) => {

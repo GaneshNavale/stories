@@ -26,7 +26,6 @@ function SignUpWithMail(props) {
         token: response.headers.authorization,
         ...response.data.data.user,
       };
-      console.log(response.data);
       login(userInfo);
       props.onHide();
     });
@@ -34,12 +33,10 @@ function SignUpWithMail(props) {
 
   const handleInputEmail = (event) => {
     setEmail(event.target.value);
-    console.log("email", email);
   };
 
   const handleInputPassword = (event) => {
     setPassword(event.target.value);
-    console.log("password", password);
   };
 
   return (
