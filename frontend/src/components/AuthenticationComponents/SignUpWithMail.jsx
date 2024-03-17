@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import * as API from "../utils/api";
+import * as API from "../../utils/api";
 import "./SignUpWithMail.css";
-import SignIn from "./SignIn"
+import SignIn from "./SignIn";
 import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 
 function SignUpWithMail(props) {
   const [showSignInModal, setShowSignInModal] = useState(false);
@@ -28,6 +28,7 @@ function SignUpWithMail(props) {
       };
       console.log(response.data);
       login(userInfo);
+      props.onHide();
     });
   };
 

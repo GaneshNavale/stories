@@ -6,39 +6,15 @@ import SidePanel from "../../components/SidePanel";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useAuth } from "../../hooks/useAuth";
 import "./Home.scss";
 
 const Home = () => {
-  const [signup, setSignUp] = useState();
-
-  const handleSignUpData = (data) => {
-    setSignUp(data);
-  };
-
-  // access local storage
-  const userInfoString = localStorage.getItem("UserInfo");
-  const userInfo = JSON.parse(userInfoString);
-  console.log("userInfo", userInfoString);
-  console.log("userInfo Name", userInfo?.name);
+  const { user } = useAuth();
 
   return (
     <>
-      {userInfo?.isPresent === true ? (
-        <>
-          <AuthenticatedNavbar userName={userInfo.name} />
-          <div className="AuthenticatedNavbar-container"></div>
-        </>
-      ) : (
-        <>
-          {/* <NavBar handleSignUpData={handleSignUpData} />
-          <div className="Banner-container">
-            <Banner />
-          </div> */}
-        </>
-      )}
-      <div className="Banner-container">
-        <Banner />
-      </div>
+      <div className="Banner-container">{!user && <Banner />}</div>
       <Container>
         <Row>
           <Col md={8}>

@@ -9,6 +9,12 @@ function SignInModal(props) {
   const [showGetStartInModal, setshowGetStartInModal] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(false);
 
+  const handleCloseModal = () => {
+    setshowGetStartInModal(false);
+    setShowEmailModal(false);
+    props.onHide();
+  };
+
   return (
     <>
       <Modal
@@ -28,30 +34,6 @@ function SignInModal(props) {
         </Modal.Header>
         <Modal.Body className="d-flex justify-content-center align-items-center mt-3">
           <div className="row">
-            <div className="col-12 mb-4">
-              <div className="container-signIn-button">
-                <i className="bi bi-google"></i>
-                <button className="custom-button">Sign in with Google</button>
-              </div>
-            </div>
-            <div className="col-12 mb-4">
-              <div className="container-signIn-button">
-                <i className="bi bi-facebook"></i>
-                <button className="custom-button">Sign in with Facebook</button>
-              </div>
-            </div>
-            <div className="col-12 mb-4">
-              <div className="container-signIn-button">
-                <i className="bi bi-apple"></i>
-                <button className="custom-button">Sign in with Apple</button>
-              </div>
-            </div>
-            <div className="col-12 mb-4">
-              <div className="container-signIn-button">
-                <i className="bi bi-twitter-x"></i>
-                <button className="custom-button">Sign in with Twitter</button>
-              </div>
-            </div>
             <div className="col-12">
               <div className="container-signIn-button">
                 <i class="bi bi-envelope-fill"></i>
@@ -79,14 +61,8 @@ function SignInModal(props) {
           </div>
         </Modal.Body>
       </Modal>
-      <GetStarted
-        show={showGetStartInModal}
-        onHide={() => setshowGetStartInModal(false)}
-      />
-      <SignUpWithMail
-        show={showEmailModal}
-        onHide={() => setShowEmailModal(false)}
-      />
+      <GetStarted show={showGetStartInModal} onHide={handleCloseModal} />
+      <SignUpWithMail show={showEmailModal} onHide={handleCloseModal} />
     </>
   );
 }

@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, Container, Button, Dropdown } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import "./NavBar.scss";
 import logo from "./../../logo.svg";
-import SignIn from "../../components/SignIn";
-import CreateNewUser from "../../components/CreateNewUser";
+import SignIn from "../AuthenticationComponents/SignIn";
+import { useAuth } from "../../hooks/useAuth";
+import CreateNewUser from "../AuthenticationComponents/CreateNewUser";
 
 const NavBar = (props) => {
   const { user } = props;
   const [navbar, setNavbar] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [showGetStartInModal, setshowGetStartInModal] = useState(false);
+  const { logout } = useAuth;
 
   const changeBackground = () => {
     if (window.scrollY >= 480) {
@@ -20,6 +22,12 @@ const NavBar = (props) => {
     }
   };
   window.addEventListener("scroll", changeBackground);
+
+  const handleLogOut = () => {
+    // logout(); // useAuth not working ........
+    localStorage.removeItem("user");
+    window.location.reload(false); // use to reload a page ....
+  };
 
   return (
     <>
@@ -42,7 +50,33 @@ const NavBar = (props) => {
                     <Nav.Link as={NavLink} to="/newPost" className="navLink">
                       Write
                     </Nav.Link>
-                    <h4>{user.first_name}</h4>
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        variant="link"
+                        id="dropdown-basic"
+                        className="custom-dropdown-toggle"
+                      >
+                        {user.first_name}
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu className="custom-dropdown-menu">
+                        <Dropdown.Item as={NavLink} to="/profile">
+                          Profile
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/settings">
+                          Stories
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/settings">
+                          Settings
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/profile">
+                          Saved
+                        </Dropdown.Item>
+                        <Dropdown.Divider />
+                        <Dropdown.Item as={NavLink} onClick={handleLogOut}>
+                          Logout
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </>
                 )}
                 {!user && (
