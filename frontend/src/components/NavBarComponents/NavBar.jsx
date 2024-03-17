@@ -3,9 +3,9 @@ import { Navbar, Nav, Container, Button, Dropdown } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import "./NavBar.scss";
 import logo from "./../../logo.svg";
-import SignIn from "../AuthenticationComponents/SignIn";
+import SignIn from "../Authentication/SignIn";
 import { useAuth } from "../../hooks/useAuth";
-import CreateNewUser from "../AuthenticationComponents/CreateNewUser";
+import CreateNewUser from "../Authentication/CreateNewUser";
 
 const NavBar = (props) => {
   const { user } = props;

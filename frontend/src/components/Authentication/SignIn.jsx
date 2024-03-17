@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import "./Signin.css";
 import { Link } from "react-router-dom";
-import GetStarted from "./GetStarted";
+import GetStarted from "../Authentication/GetStarted";
 import SignUpWithMail from "./SignUpWithMail";
 
 function SignInModal(props) {
