@@ -26,7 +26,6 @@ function SignUpWithMail(props) {
         token: response.headers.authorization,
         ...response.data.data.user,
       };
-      console.log(response.data);
       login(userInfo);
       props.onHide();
     });

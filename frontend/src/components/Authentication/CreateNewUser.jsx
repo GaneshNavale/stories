@@ -26,35 +26,28 @@ function CreateNewUser(props) {
   const handleLoginCreate = (e) => {
     e.preventDefault();
     API.createUser(emailParams).then((response) => {
-      console.log("response", emailParams);
-      console.log("response header :", response.headers);
       setShowConfirmation(true);
     });
   };
 
   const handleInputEmail = (event) => {
-    setEmail(event.target.value)
-    console.log("email", email);
+    setEmail(event.target.value);
   };
 
   const handleFirstName = (event) => {
-    setFirstName(event.target.value)
-    console.log("firstName", firstName);
+    setFirstName(event.target.value);
   }
 
   const handleLastName = (event) => {
-    setLastName(event.target.value)
-    console.log("lastName", lastName);
+    setLastName(event.target.value);
   }
 
   const handlePassword = (event) => {
-    setpassword(event.target.value)
-    console.log("password", password);
+    setpassword(event.target.value);
   }
 
   const handleInputDate = (event) => {
-    setDate(event.target.value)
-    console.log("date", date);
+    setDate(event.target.value);
   }
 
   const handleCloseConfirmation = () => {

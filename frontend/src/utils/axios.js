@@ -1,12 +1,15 @@
 import axios from 'axios';
 
+let user = window.localStorage.getItem("stories_user");
+user = user ? JSON.parse(user) : null;
+
 let instance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: "http://localhost:3000",
   headers: {
-    // 'Authorization': `Bearer ${localStorage.key('stories_token')}`
     "Content-Type": "application/json",
-    "Accept": "application/json"
-  }
+    "Accept": "application/json",
+    "Authorization": user?.token,
+  },
 });
 
 export default instance;

@@ -1,31 +1,24 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "./DisplayPost.scss";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row"; // Fix import statement
 import Container from "react-bootstrap/Container";
 import { Paragraph, Header } from "@alkhipce/editorjs-react";
+import * as API from "../utils/api";
 import { useLocation, Link } from "react-router-dom";
 
 const DisplayPost = (props) => {
   let { state } = useLocation();
-  console.log("state", state);
   const [postId, setPostId] = useState(state.id);
   const [post, setPost] = useState({});
 
   useEffect(() => {
-    fetchPost().then((data) => {
-      setPost(data);
-    });
+    if (postId) {
+      API.getPost(postId).then((response) => {
+        setPost(response.data.data);
+      });
+    }
   }, [postId]);
-
-  const fetchPost = async () => {
-    const response = await axios.get(
-      `http://localhost:3000/api/v1/posts/${postId}`
-    );
-    console.log("response", response.data.data);
-    return response.data.data;
-  };
 
   const calculateAverageReadingTime = (text) => {
     if (!text || typeof text !== "string" || text.trim() === "") {
