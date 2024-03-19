@@ -3,16 +3,16 @@ import { Navbar, Nav, Container, Button, Dropdown } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import "./NavBar.scss";
 import logo from "./../../logo.svg";
-import SignIn from "../Authentication/SignIn";
 import { useAuth } from "../../hooks/useAuth";
 import CreateNewUser from "../Authentication/CreateNewUser";
+import SignUpWithMail from "../Authentication/SignUpWithMail";
 
 const NavBar = (props) => {
   const { user } = props;
   const [navbar, setNavbar] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [showGetStartInModal, setshowGetStartInModal] = useState(false);
-  const { logout } = useAuth;
+  const { logout } = useAuth; // not working ......
 
   const changeBackground = () => {
     if (window.scrollY >= 480) {
@@ -25,7 +25,7 @@ const NavBar = (props) => {
 
   const handleLogOut = () => {
     // logout(); // useAuth not working ........
-    localStorage.removeItem("user");
+    localStorage.removeItem("stories_user");
     window.location.reload(false); // use to reload a page ....
   };
 
@@ -111,7 +111,10 @@ const NavBar = (props) => {
           </Nav>
         </Container>
       </Navbar>
-      <SignIn show={showSignInModal} onHide={() => setShowSignInModal(false)} />
+      <SignUpWithMail
+        show={showSignInModal}
+        onHide={() => setShowSignInModal(false)}
+      />
       <CreateNewUser
         show={showGetStartInModal}
         onHide={() => setshowGetStartInModal(false)}

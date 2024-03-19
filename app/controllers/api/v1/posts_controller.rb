@@ -6,7 +6,6 @@ class Api::V1::PostsController < ApplicationController
 
   def index
     @posts = Post.includes(:user)
-    render json: { success:1, posts: @posts }
   end
 
   def create

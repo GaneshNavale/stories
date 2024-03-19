@@ -5,6 +5,7 @@ json.posts @posts do |post|
   json.data             post.data
   json.comments_count    post.comments_count
   json.likes_count       post.likes_count
+  json.liked_by_me       post.likes.exists?(user_id: current_user.id) if current_user.present?
   
   json.user do
     json.id             post.user_id

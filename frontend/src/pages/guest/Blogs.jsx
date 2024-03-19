@@ -5,21 +5,22 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import * as API from "../../utils/api";
 import "../../components/BlogList.scss";
 
 const Blogs = () => {
   const [state, setState] = useState({ posts: [], isLoading: true });
 
   useEffect(() => {
-    getPosts().then((response) => {
-      setState({ posts: response.data.posts, isLoading: false });
-    });
+    API.getPosts()
+      .then((response) => {
+        setState({ posts: response.data.posts, isLoading: false });
+        console.log("response check : ", response.data.posts);
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error); // write this because the pending status
+      });
   }, []);
-
-  const getPosts = async () => {
-    const response = await axios.get(`http://localhost:3000/api/v1/posts`);
-    return response;
-  };
 
   function formatCreatedAt(createdAt) {
     const date = new Date(createdAt);
@@ -33,6 +34,7 @@ const Blogs = () => {
     setState({ ...state, posts: updatedPosts });
   };
 
+  const handleLikeUnlike = () => {};
   return (
     <>
       {!state.isLoading &&
@@ -48,6 +50,9 @@ const Blogs = () => {
             (item) => item.type === "image"
           );
 
+          //find user name
+          const userName = post.user?.username;
+          // console.log("post Id : ", post.id);
           const firstParagraph =
             paragraphs && paragraphs.length > 0 ? paragraphs[0] : null;
           const formattedDate = formatCreatedAt(post.created_at);
@@ -59,12 +64,15 @@ const Blogs = () => {
                   <div className="main-Container">
                     <div className="story">
                       <div className="display">
+                        {/* Display First Name before  */}
+                        {userName && <p>{userName}</p>}
                         {heading && (
                           <Link
                             to="/displayPost"
-                            state={{ id: post.id }}
+                            state={{ id: post.id, username: userName }}
                             className="post-link"
                           >
+                            {console.log("user name :", userName)}
                             <Header
                               level={1}
                               text={heading.data.text}
@@ -93,13 +101,14 @@ const Blogs = () => {
                                 {formattedDate}
                                 <i className="distance"></i>
                                 <span>
+                                  <i class="bi bi-hand-thumbs-up"></i>{" "}
+                                  {/** like and unlike thumb by default unlike */}
+                                </span>
+                                <span>
                                   <i className="b1 bi bi-bookmarks"></i>
                                 </span>
                                 <span onClick={() => handleRemove(post.id)}>
                                   <i className="b1 bi bi-dash-circle"></i>
-                                </span>
-                                <span>
-                                  <i className="b1 bi bi-list"></i>
                                 </span>
                               </p>
                             </div>

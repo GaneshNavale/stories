@@ -20,6 +20,10 @@ export const createPost = (data = {}) => {
   return axios.post("/api/v1/posts", { data: data });
 };
 
+export const getPosts = () => {
+  return axios.get("/api/v1/posts");
+};
+
 export const getPost = (id, params = {}) => {
   console.log("get Post");
 

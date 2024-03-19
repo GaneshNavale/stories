@@ -9,7 +9,9 @@ import { useLocation, Link } from "react-router-dom";
 
 const DisplayPost = (props) => {
   let { state } = useLocation();
+  console.log("check state", state);
   const [postId, setPostId] = useState(state.id);
+  const [userName, setUserName] = useState(state.username);
   const [post, setPost] = useState({});
 
   useEffect(() => {
@@ -51,6 +53,8 @@ const DisplayPost = (props) => {
     return totalReadingTime;
   };
 
+  console.log("user name : ", userName);
+
   return (
     <>
       <Link to="/">Home</Link>
@@ -63,6 +67,8 @@ const DisplayPost = (props) => {
                 <p className="total-time">
                   {calculateTotalReadingTime()}Min Read
                 </p>
+                {/* display user name */}
+                <p>{userName}</p>
                 {post.blocks &&
                   post.blocks.map((block, index) => (
                     <div key={index}>
@@ -82,7 +88,6 @@ const DisplayPost = (props) => {
                       {block.type === "paragraph" && (
                         <Paragraph id={postId} text={block.data.text} />
                       )}
-                      {console.log(block.data.text)}
                     </div>
                   ))}
               </div>
@@ -92,12 +97,15 @@ const DisplayPost = (props) => {
         </Container>
         <Container className="mt-3">
           <Row>
-            <Col sm={5}></Col>
+            <Col sm={4}></Col>
             <Col sm={1}>
               <i className="bi bi-chat"></i>
             </Col>
             <Col sm={1}>
               <i className="bi bi-bookmarks"></i>
+            </Col>
+            <Col sm={1}>
+              <i class="bi bi-hand-thumbs-up"></i>
             </Col>
             <Col sm={1}>
               <i className="bi bi-box-arrow-up"></i>
