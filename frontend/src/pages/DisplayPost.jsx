@@ -10,8 +10,8 @@ import { useLocation, Link } from "react-router-dom";
 const DisplayPost = (props) => {
   let { state } = useLocation();
   console.log("check state", state);
-  const [postId, setPostId] = useState(state.id);
-  const [userName, setUserName] = useState(state.username);
+  const [postId, setPostId] = useState(state?.id); // error after onclick signin // solved
+  const [userName, setUserName] = useState(state?.username);
   const [post, setPost] = useState({});
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const DisplayPost = (props) => {
       <div className="display-story" key={postId}>
         <Container>
           <Row>
-            <Col sm={4}></Col>
+            <Col sm={6}></Col>
             <Col sm={6} className="text-left">
               <div>
                 <p className="total-time">
@@ -92,7 +92,7 @@ const DisplayPost = (props) => {
                   ))}
               </div>
             </Col>
-            <Col sm={2}></Col>
+            <Col sm={0}></Col>
           </Row>
         </Container>
         <Container className="mt-3">

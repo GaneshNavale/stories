@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Navbar, Nav, Container, Button, Dropdown } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import "./NavBar.scss";
 import logo from "./../../logo.svg";
 import { useAuth } from "../../hooks/useAuth";
@@ -13,6 +13,9 @@ const NavBar = (props) => {
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [showGetStartInModal, setshowGetStartInModal] = useState(false);
   const { logout } = useAuth; // not working ......
+  const location = useLocation(); // used for to find curent component
+  const homePath = "/";
+  const isHome = location.pathname === homePath;
 
   const changeBackground = () => {
     if (window.scrollY >= 480) {
@@ -47,6 +50,11 @@ const NavBar = (props) => {
               <div className="linksBox">
                 {user && (
                   <>
+                    {!isHome && (
+                      <Nav.Link as={NavLink} to="/" className="navLink">
+                        Home
+                      </Nav.Link>
+                    )}
                     <Nav.Link as={NavLink} to="/newPost" className="navLink">
                       Write
                     </Nav.Link>
@@ -81,6 +89,11 @@ const NavBar = (props) => {
                 )}
                 {!user && (
                   <>
+                    {!isHome && (
+                      <Nav.Link as={NavLink} to="/" className="navLink">
+                        Home
+                      </Nav.Link>
+                    )}
                     <Nav.Link
                       as={NavLink}
                       className="navLink"

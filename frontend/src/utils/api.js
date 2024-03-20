@@ -1,5 +1,6 @@
 import axios from "./axios";
 
+// post apis
 export const getUser = (id, params = {}) => {
   return axios.get(`/login/${id}`, { params: params });
 };
@@ -25,11 +26,14 @@ export const getPosts = () => {
 };
 
 export const getPost = (id, params = {}) => {
-  console.log("get Post");
-
   return axios.get(`/api/v1/posts/${id}`, { params: params });
 };
 
 export const login = (params = {}) => {
   return axios.post("/login", { user: params });
 };
+
+// like Api
+export const likePost = (id, params = {}) =>{
+  return axios.post(`/api/v1/likes/${id}`)
+}

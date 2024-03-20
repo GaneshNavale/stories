@@ -57,6 +57,9 @@ const Blogs = () => {
             paragraphs && paragraphs.length > 0 ? paragraphs[0] : null;
           const formattedDate = formatCreatedAt(post.created_at);
 
+          {
+            console.log("check user nam", userName);
+          }
           return (
             <Container key={post.id}>
               <Row>
@@ -69,7 +72,7 @@ const Blogs = () => {
                         {heading && (
                           <Link
                             to="/displayPost"
-                            state={{ id: post.id, username: userName }}
+                            state={{ id: post.id, username: userName }} // not able to pass username
                             className="post-link"
                           >
                             {console.log("user name :", userName)}
